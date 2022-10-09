@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+//Route::get('/', function () {
+//    return view('welcome');
+//});
+Route::get('/admin',function (){
+    $gifts = \App\Models\Gift::all();
+    return view('welcome',compact('gifts'));
 });
