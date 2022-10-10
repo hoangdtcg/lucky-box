@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GiftController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,10 +14,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::get('/', function () {
-//    return view('welcome');
-//});
+Route::get('/', function () {
+    $gift = \App\Models\Gift::where('amount','>',0)->inRandomOrder()->first();
+    return view('game',compact('gift'));
+})->name('game');
+
+Route::get('/{id}/confirm-gift',function ($id){
+    $gift = \App\Models\Gift::findOrFail($id);
+    $gift->amount = $gift->amount - 1;
+    $gift->save();
+    return redirect()->route('game');
+})->name('confirm-gift');
+
 Route::get('/admin',function (){
     $gifts = \App\Models\Gift::all();
-    return view('welcome',compact('gifts'));
-});
+    return view('admin',compact('gifts'));
+})->name('admin');
+
+Route::get('/admin/{id}/edit',[GiftController::class,'edit'])->name('edit-gift');
+Route::get('/admin/{id}/delete',[GiftController::class,'destroy'])->name('delete-gift');
+Route::post('/admin/gift/store',[GiftController::class,'store'])->name('gift.store');
