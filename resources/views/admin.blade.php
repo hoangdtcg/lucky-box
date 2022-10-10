@@ -95,6 +95,7 @@
                                 <th>Tên phần quà</th>
                                 <th>Giá</th>
                                 <th>Số lượng</th>
+                                <th>Tỉ lệ</th>
                                 <th colspan="2">Tác vụ</th>
                             </tr>
                             </thead>
@@ -108,6 +109,7 @@
                                     <td>{{ $gift->name }}</td>
                                     <td>{{ $gift->price }}</td>
                                     <td>{{ $gift->amount }}</td>
+                                    <td>{{ $gift->rate}} %</td>
                                     <td>
                                         <button type="button" class="btn btn-primary edit-gift" data-id="{{$gift->id}}">
                                             Cập nhật
@@ -153,6 +155,13 @@
                                 <input type="number" class="form-control" name="gift_amount" id="amount-gift"
                                        aria-describedby="amountHelp">
                             </div>
+
+                            <div class="form-group">
+                                <label for="rate-gift">Tỉ lệ nhận quà</label>
+                                <input type="number" max="100" class="form-control" name="gift_rate" id="rate-gift"
+                                       aria-describedby="amountHelp">
+                            </div>
+
                             <div class="form-group">
                                 <label for="amount-gift">Ảnh quà tặng</label>
                                 <input type="file" class="form-control" name="gift_img" id="gift_img"
@@ -224,6 +233,7 @@
                 $('#name-gift').val(data.name);
                 $('#price-gift').val(data.price);
                 $('#amount-gift').val(data.amount);
+                $('#rate-gift').val(data.rate);
                 $('#img-gift').prop('src', 'storage/' + data.image);
             })
         });

@@ -9,6 +9,6 @@ class Gift extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'name', 'price', 'amount','image'
+        'name', 'price', 'amount','rate','image'
     ];
 }

@@ -19,6 +19,7 @@ class CreateGiftsTable extends Migration
             $table->string('image')->nullable();
             $table->bigInteger('price')->nullable();
             $table->integer('amount');
+            $table->integer('rate')->default(10);
             $table->timestamps();
         });
     }

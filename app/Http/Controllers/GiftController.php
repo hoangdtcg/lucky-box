@@ -7,6 +7,22 @@ use Illuminate\Http\Request;
 
 class GiftController extends Controller
 {
+    public function index()
+    {
+        $gifts = \App\Models\Gift::where('amount','>',0)->where('rate','>',0)->inRandomOrder()->get();
+        $totalRate = Gift::sum('rate');
+        $sum = 0;
+        $rand = rand(0, $totalRate);
+        $gift = $gifts[0];
+        foreach ($gifts as $giftItem){
+            $sum += $giftItem->rate;
+            if($rand <= $sum){
+                $gift = $giftItem;
+                break;
+            }
+        }
+        return view('game',compact('gift'));
+    }
     public function store(Request $request)
     {
         $request->validate([
@@ -29,6 +45,7 @@ class GiftController extends Controller
                 'name' => $request->gift_name,
                 'price' => $request->gift_price,
                 'amount' => $request->gift_amount,
+                'rate' => $request->gift_rate,
                 'image' => $path
             ]);
 

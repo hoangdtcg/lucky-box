@@ -14,10 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    $gift = \App\Models\Gift::where('amount','>',0)->inRandomOrder()->first();
-    return view('game',compact('gift'));
-})->name('game');
+Route::get('/', [GiftController::class,'index'])->name('game');
 
 Route::get('/{id}/confirm-gift',function ($id){
     $gift = \App\Models\Gift::findOrFail($id);
