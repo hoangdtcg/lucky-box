@@ -25,9 +25,9 @@ class GiftController extends Controller
     }
     public function store(Request $request)
     {
-        $request->validate([
-//            'gift_img' => 'image|mimes:jpeg,png,jpg,gif,svg',
-        ]);
+//        $request->validate([
+////            'gift_img' => 'image|mimes:jpeg,png,jpg,gif,svg',
+//        ]);
 
         if ($request->file('gift_img')) {
             $imagePath = $request->file('gift_img');
