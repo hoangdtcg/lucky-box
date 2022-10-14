@@ -128,7 +128,7 @@
 <!-- Modal -->
 <div class="modal fade" id="open-gift" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
      aria-hidden="true">
-    <div class="modal-xl modal-dialog modal-dialog-centered w-75" role="document">
+    <div class="modal-xl modal-dialog modal-dialog-centered w-100" role="document">
         <div class="modal-content" style="background-color: transparent;border: none;box-shadow: none">
             <div class="modal-body text-center mt-2 mb-5">
                 <img id="open-anim" class="item pt-2 pb-2 w-100" src="images/box/box.png"  alt="">
@@ -136,7 +136,6 @@
                     <h2 class="text-white mb-3">Phần quà của bạn</h2>
                     <h2 class="text-white gift-name">{{ $gift->name }}</h2>
                     <img src="{{$gift->image ? asset("storage/".$gift->image) : "images/default.png" }}" class="pt-2 pb-2 w-100" alt="">
-                    <h1 class="text-warning">{{ number_format($gift->price) }} VNĐ</h1>
                 </div>
             </div>
             <div class="modal-footer">
