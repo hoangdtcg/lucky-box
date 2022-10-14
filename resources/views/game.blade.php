@@ -138,8 +138,8 @@
             <div class="modal-body text-center mt-2 mb-5">
                 <img id="open-anim" class="item pt-2 pb-2 w-75" src="images/box/box.png"  alt="">
                 <div class="gift-content">
-                    <h2 class="text-white mb-3">Phần quà của bạn</h2>
-                    <h2 class="text-white gift-name">{{ $gift->name }}</h2>
+                    <h2 class="text-white mb-3" style="font-size:45px">Phần quà của bạn</h2>
+                    <h2 class="text-white gift-name" style="font-size:45px">{{ $gift->name }}</h2>
                     <img src="{{$gift->image ? asset("storage/".$gift->image) : "images/default.png" }}" class="pt-2 pb-2 w-100" alt="">
                 </div>
             </div>
