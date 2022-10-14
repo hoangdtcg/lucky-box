@@ -84,6 +84,11 @@
         z-index: 99;
         display: none;
     }
+    
+    #back-gift, .btn-pinky{
+        font-size:45px;
+        text-transform: uppercase;
+    }
 
 </style>
 <body>
@@ -128,7 +133,7 @@
 <!-- Modal -->
 <div class="modal fade" id="open-gift" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
      aria-hidden="true">
-    <div class="modal-xl modal-dialog modal-dialog-centered w-100" role="document">
+    <div class="modal-xl modal-dialog modal-dialog-centered w-100" role="document" style="max-width:100%">
         <div class="modal-content" style="background-color: transparent;border: none;box-shadow: none">
             <div class="modal-body text-center mt-2 mb-5">
                 <img id="open-anim" class="item pt-2 pb-2 w-100" src="images/box/box.png"  alt="">
@@ -139,7 +144,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <div class="col-12">
+                <div class="col-12" style="padding: 20px 150px">
                     <div class="row">
                         <div class="col-6">
                             <button type="button" class="btn btn-block btn-lg btn-secondary" data-dismiss="modal" id="back-gift">Quay lại</button>
