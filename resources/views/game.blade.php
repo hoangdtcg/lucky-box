@@ -136,7 +136,7 @@
     <div class="modal-xl modal-dialog modal-dialog-centered w-100" role="document" style="max-width:100%">
         <div class="modal-content" style="background-color: transparent;border: none;box-shadow: none">
             <div class="modal-body text-center mt-2 mb-5">
-                <img id="open-anim" class="item pt-2 pb-2 w-100" src="images/box/box.png"  alt="">
+                <img id="open-anim" class="item pt-2 pb-2 w-75" src="images/box/box.png"  alt="">
                 <div class="gift-content">
                     <h2 class="text-white mb-3">Phần quà của bạn</h2>
                     <h2 class="text-white gift-name">{{ $gift->name }}</h2>
