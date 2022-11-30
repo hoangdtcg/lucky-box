@@ -11,4 +11,9 @@ class Gift extends Model
     protected $fillable = [
         'name', 'price', 'amount','rate','image'
     ];
+
+    public function customers()
+    {
+        return $this->hasMany(Customer::class);
+    }
 }

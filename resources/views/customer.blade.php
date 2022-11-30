@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta name="description" content=""/>
     <meta name="author" content=""/>
-    <title>Nghé Xinh</title>
+    <title>Khách hàng nhận quà</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
           integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
@@ -15,9 +15,10 @@
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
 </head>
 <body class="sb-nav-fixed">
+@include('sweetalert::alert')
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
     <!-- Navbar Brand-->
-    <a class="navbar-brand ps-3" href="index.html">Start Bootstrap</a>
+    <a class="navbar-brand ps-3" href="">Nghé xinh</a>
     <!-- Sidebar Toggle-->
     <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
             class="fas fa-bars"></i></button>
@@ -70,11 +71,11 @@
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid px-4">
-                <h1 class="mt-4">Gifts</h1>
+                <h1 class="mt-4">Customers</h1>
 
                 <ol class="breadcrumb mb-4">
                     <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                    <li class="breadcrumb-item active">Gifts</li>
+                    <li class="breadcrumb-item active">Customers</li>
                 </ol>
                 <div class="card mb-4">
                     <div class="card-header">
@@ -82,10 +83,7 @@
                             <div class="row">
                                 <div class="col-6">
                                     <i class="fas fa-table me-1"></i>
-                                    Quản lý phần quà
-                                </div>
-                                <div class="col-6 text-right">
-                                    <button class="btn btn-success" id="createNewGift">Tạo mới phần quà</button>
+                                    Quản lý khách hàng nhận quà
                                 </div>
                             </div>
                         </div>
@@ -95,32 +93,27 @@
                         <table id="datatablesSimple">
                             <thead>
                             <tr>
-                                <th>Ảnh quà</th>
-                                <th>Tên phần quà</th>
-                                <th>Giá</th>
-                                <th>Số lượng</th>
-                                <th>Tỉ lệ</th>
-                                <th colspan="2">Tác vụ</th>
+                                <th>Tên khách hàng</th>
+                                <th>Số điện thoại</th>
+                                <th>Tên quà</th>
+                                <th>Trạng thái</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($gifts as $gift)
+                            @foreach($customers as $customer)
                                 <tr>
-                                    <td><img
-                                            src="{{$gift->image ? asset("storage/".$gift->image) : "images/default.png" }}"
-                                            style="height: 100px"
-                                            alt=""></td>
-                                    <td>{{ $gift->name }}</td>
-                                    <td>{{ $gift->price }}</td>
-                                    <td>{{ $gift->amount }}</td>
-                                    <td>{{ $gift->rate}} %</td>
+                                    <td>{{ $customer->name }}</td>
+                                    <td>{{ $customer->phone }}</td>
+                                    <td>{{ $customer->gift->name }}</td>
                                     <td>
-                                        <button type="button" class="btn btn-primary edit-gift" data-id="{{$gift->id}}">
-                                            Cập nhật
-                                        </button>
-                                         | <button type="button" class="btn btn-danger delete-gift" data-id="{{$gift->id}}">
-                                            Xóa
-                                        </button>
+                                        @if($customer->is_receive <= 0)
+                                            <a href="{{ route('customer.acceptGift',['customerId'=>$customer->id, 'giftId'=>$customer->gift->id]) }}"
+                                               type="button" class="btn btn-primary">
+                                                Nhận quà
+                                            </a>
+                                        @else
+                                            <p class="text-success">Đã nhận quà</p>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach
@@ -249,7 +242,7 @@
         function readURL(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
-                reader.onload = function(e) {
+                reader.onload = function (e) {
                     $('#img-gift').attr('src', e.target.result);
                 }
                 reader.readAsDataURL(input.files[0]);
@@ -258,7 +251,7 @@
             }
         }
 
-        $("#gift_img").change(function() {
+        $("#gift_img").change(function () {
             readURL(this);
         });
 
@@ -290,7 +283,7 @@
 
             $.ajax({
                 type: "GET",
-                url: "{{ route('admin') }}"+'/'+product_id+"/delete",
+                url: "{{ route('admin') }}" + '/' + product_id + "/delete",
                 success: function (data) {
                     window.location.reload();
                 },

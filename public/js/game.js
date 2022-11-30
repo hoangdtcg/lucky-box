@@ -2,13 +2,16 @@ import confetti from "https://cdn.skypack.dev/canvas-confetti";
 
 $(document).ready(function () {
     $('img.item').click(function(){
+        const img = $(this).attr("src");
         $(".overlay").show();
+        $("#open-anim").attr("src", img).show();
+        $("#open-gift").show();
         $(".gift-content").hide();
-        $(".modal-footer").hide();
+        $(".gift-footer").hide();
         setTimeout(function () {
             $("#open-anim").hide();
             $(".gift-content").show();
-            $(".modal-footer").show();
+            $(".gift-footer").show();
             confetti(
                 {
                     particleCount: 500,
@@ -23,4 +26,9 @@ $(document).ready(function () {
         window.location.reload();
     });
 
+    $('.receive-gift').click(function(){
+        $(".overlay").hide();
+        $('#open-gift').hide();
+        $('#user-info').show();
+    });
 })

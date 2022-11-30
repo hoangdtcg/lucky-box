@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\GiftController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,6 +28,9 @@ Route::get('/admin',function (){
     $gifts = \App\Models\Gift::all();
     return view('admin',compact('gifts'));
 })->name('admin');
+Route::get('/customer',[CustomerController::class,'index'])->name('customer');
+Route::post('/customer/create',[CustomerController::class,'store'])->name('customer.store');
+Route::get('/customer/{customerId}/accept-gift/{giftId}',[CustomerController::class,'acceptGift'])->name('customer.acceptGift');
 
 Route::get('/admin/{id}/edit',[GiftController::class,'edit'])->name('edit-gift');
 Route::get('/admin/{id}/delete',[GiftController::class,'destroy'])->name('delete-gift');
