@@ -32,7 +32,7 @@ class CustomerController extends Controller
         $customer->phone = $request->phone;
         $customer->gift_id = $request->giftId;
         $customer->save();
-        return redirect()->back()->with('success', 'Cám ơn bạn đã tham gia chương trình');
+        return redirect()->back();
     }
 
     public function acceptGift($customerId, $giftId)
