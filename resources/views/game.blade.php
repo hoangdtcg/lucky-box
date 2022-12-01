@@ -154,8 +154,9 @@
             <div class="gift-content">
                 <h2 class="text-white mb-3">Phần quà của bạn</h2>
                 <h2 class="text-white gift-name font-mobile">{{ $gift->name }}</h2>
-                <img src="{{$gift->image ? asset("storage/".$gift->image) : "images/default.png" }}"
-                     class="pt-4 pb-4 w-100" alt="">
+                <input type="hidden" class="gift-id" value="{{ $gift->id }}">
+                <img id="img-gift" src="{{$gift->image ? asset("storage/".$gift->image) : "images/default.png" }}"
+                     class="pt-4 pb-4 w-100 gift-img" alt="">
             </div>
             <div class="gift-footer">
                 <div class="col-12 text-center">
@@ -222,7 +223,7 @@
                         <div class="d-flex flex-column text-center">
                             <form method="post" name="info-customer" action="{{route("customer.store")}}">
                                 @csrf
-                                <input type="hidden" class="form-control" name="giftId" value="{{ $gift->id }}">
+                                <input type="hidden" class="form-control giftId" name="giftId"  value="{{ $gift->id }}">
                                 <div class="form-group">
                                     <input type="text" class="form-control" id="username" name="username" placeholder="Tên khách hàng...">
                                     <p id="nameHelp" class="text-danger help text-left">
@@ -233,7 +234,7 @@
                                     <p id="phoneHelp" class="text-danger help text-left">
                                         Số điện thoại cần 10 số.</p>
                                 </div>
-                                <button type="submit" class="btn btn-success btn-lg btn-round font-mobile mt-2">Gửi thông tin</button>
+                                <button type="submit" class="btn btn-success btn-lg btn-round font-mobile mt-2 btn-receive">Gửi thông tin</button>
                             </form>
                         </div>
                     </div>
@@ -253,6 +254,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"
         integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+"
         crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 <script type="module" src="js/game.js"></script>
 <script>
     $(document).ready(function (){
