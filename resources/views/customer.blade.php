@@ -115,6 +115,10 @@
                                             <p class="text-success">Đã nhận quà</p>
                                         @endif
                                     </td>
+                                    <td>
+                                        <a href="/customer/delete/{{$customer->id}}"
+                                           class="btn btn-danger delete-confirm" role="button">Delete</a>
+                                    </td>
                                 </tr>
                             @endforeach
                             </tbody>
@@ -204,95 +208,23 @@
 <script src="js/scripts.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
 <script src="js/datatables-simple-demo.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 <script>
     $(document).ready(function () {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        $('#createNewGift').click(function () {
-            $('#saveBtn').html("Tạo mới");
-            $('#gift_id').val('');
-            $('#giftForm').trigger("reset");
-            $('#modelHeading').html("Tạo mới quà tặng");
-            $('#action-modal').modal('show');
-        });
-
-        $('body').on('click', '.edit-gift', function () {
-            var product_id = $(this).attr('data-id');
-            $.get("{{ route('admin') }}" + '/' + product_id + '/edit', function (data) {
-                $('#modelHeading').html("Cập nhật thông tin quà tặng");
-                $('#saveBtn').html("Cập nhật");
-                $('#action-modal').modal('show');
-                $('#gift_id').val(data.id);
-                $('#name-gift').val(data.name);
-                $('#price-gift').val(data.price);
-                $('#amount-gift').val(data.amount);
-                $('#rate-gift').val(data.rate);
-                $('#img-gift').prop('src', 'storage/' + data.image);
-            })
-        });
-
-        $('body').on('click', '.close-modal', function () {
-            $('#action-modal').modal('hide');
-        });
-
-        function readURL(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    $('#img-gift').attr('src', e.target.result);
-                }
-                reader.readAsDataURL(input.files[0]);
-            } else {
-                $('#img-gift').attr('src', '');
-            }
-        }
-
-        $("#gift_img").change(function () {
-            readURL(this);
-        });
-
-        $('#giftForm').on('submit', function (e) {
-            e.preventDefault();
-            $('#saveBtn').html('Sending..');
-            $.ajax({
-                url: "{{ route('gift.store') }}",
-                type: "POST",
-                data: new FormData(this),
-                dataType: 'json',
-                contentType: false,
-                cache: false,
-                processData: false,
-                success: function (data) {
-                    $('#giftForm').trigger("reset");
-                    $('#action-modal').modal('hide');
-                    window.location.reload();
-                },
-                error: function (data) {
-                    console.log('Error:', data);
+        $('.delete-confirm').on('click', function (event) {
+            event.preventDefault();
+            const url = $(this).attr('href');
+            swal({
+                title: 'Bạn chắc chứ?',
+                text: 'Thông tin khách hàng này sẽ bị xóa vĩnh viễn!',
+                icon: 'warning',
+                buttons: ["Cancel", "OK!"],
+            }).then(function (value) {
+                if (value) {
+                    window.location.href = url;
                 }
             });
         });
-
-        $('body').on('click', '.delete-gift', function () {
-            var product_id = $(this).attr('data-id');
-            confirm("Bạn có chắc chắn muốn xóa !");
-
-            $.ajax({
-                type: "GET",
-                url: "{{ route('admin') }}" + '/' + product_id + "/delete",
-                success: function (data) {
-                    window.location.reload();
-                },
-                error: function (data) {
-                    console.log('Error:', data);
-                }
-            });
-        });
-
     })
 </script>
 </body>

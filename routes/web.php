@@ -30,6 +30,7 @@ Route::get('/admin',function (){
 })->name('admin');
 Route::get('/customer',[CustomerController::class,'index'])->name('customer');
 Route::post('/customer/create',[CustomerController::class,'store'])->name('customer.store');
+Route::get('/customer/delete/{id}',[CustomerController::class,'destroy'])->name('customer.destroy');
 Route::get('/customer/{customerId}/accept-gift/{giftId}',[CustomerController::class,'acceptGift'])->name('customer.acceptGift');
 
 Route::get('/admin/{id}/edit',[GiftController::class,'edit'])->name('edit-gift');

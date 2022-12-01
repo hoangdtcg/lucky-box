@@ -45,4 +45,9 @@ class CustomerController extends Controller
         $gift->save();
         return redirect()->back()->with('success', 'Nhận quà thành công');
     }
+
+    public function destroy($id){
+        Customer::where("id",$id)->delete();
+        return redirect()->back()->with('success', 'Xoá khách hàng thành công');
+    }
 }

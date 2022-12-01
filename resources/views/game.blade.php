@@ -161,7 +161,7 @@
                 <div class="col-12 text-center">
                     <div class="row">
                         <div class="col-12">
-                            <button type="button" class="btn btn-block btn-lg btn-pinky receive-gift font-mobile" data-toggle="modal"
+                            <button type="button" class="btn btn-block btn-lg btn-success receive-gift font-mobile" data-toggle="modal"
                                     data-target="#user-info">Nhận Quà
                             </button>
                         </div>
@@ -225,9 +225,13 @@
                                 <input type="hidden" class="form-control" name="giftId" value="{{ $gift->id }}">
                                 <div class="form-group">
                                     <input type="text" class="form-control" id="username" name="username" placeholder="Tên khách hàng...">
+                                    <p id="nameHelp" class="text-danger help text-left">
+                                        Tên không được để trống.</p>
                                 </div>
                                 <div class="form-group">
                                     <input type="number" class="form-control" id="phone" name="phone" placeholder="Số điện thoại...">
+                                    <p id="phoneHelp" class="text-danger help text-left">
+                                        Số điện thoại cần 10 số.</p>
                                 </div>
                                 <button type="submit" class="btn btn-success btn-lg btn-round font-mobile mt-2">Gửi thông tin</button>
                             </form>
@@ -250,5 +254,33 @@
         integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+"
         crossorigin="anonymous"></script>
 <script type="module" src="js/game.js"></script>
+<script>
+    $(document).ready(function (){
+        validate();
+        $('#username, #phone').on("input",validate);
+    });
+
+    function validate(){
+        if ($('#username').val().length   >   0   &&
+            $('#phone').val().length    ===  10) {
+            $("button[type=submit]").prop("disabled", false);
+            $(".help").hide()
+        }
+        else {
+            $("button[type=submit]").prop("disabled", true);
+            if ($('#username').val().length   <=   0){
+                $("#nameHelp").show()
+            }else {
+                $("#nameHelp").hide()
+            }
+
+            if ($('#phone').val().length   <   10 || $('#phone').val().length   >   10 ){
+                $("#phoneHelp").show()
+            }else {
+                $("#phoneHelp").hide()
+            }
+        }
+    }
+</script>
 </body>
 </html>
